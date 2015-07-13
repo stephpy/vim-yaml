@@ -16,8 +16,9 @@
 
 if version < 600
   syntax clear
+elseif exists('b:current_syntax')
+  finish
 endif
-syntax clear
 
 syn match yamlDelimiter	"[:,-]"
 syn match yamlBlock "[\[\]\{\}\|\>]"
@@ -58,3 +59,4 @@ hi link yamlDelimiter	Delimiter
 hi link yamlString	String
 hi link yamlEscape	Special
 
+let b:current_syntax = 'yaml'
