@@ -19,17 +19,25 @@ if version < 600
 endif
 syntax clear
 
+if exists('g:yaml_limit_spell') && g:yaml_limit_spell
+ syn cluster yamlSpelling contains=@Spell
+else
+ " dummy directive to just have yamlSpelling defined, without any group
+ syn cluster yamlSpelling remove=whatever
+endif
+
+
 syn match yamlInline "[\[\]\{\}]"
 syn match yamlBlock "[>|]\d\?[+-]"
 
-syn region yamlComment	start="\#" end="$"
+syn region yamlComment	start="\#" end="$" contains=@yamlSpelling
 syn match yamlIndicator	"#YAML:\S\+"
 
-syn region yamlString	start="\(^\|\s\|\[\|\,\|\-\)\@<='" end="'" skip="\\'"
-syn region yamlString	start='"' end='"' skip='\\"' contains=yamlEscape
-syn region yamlString	matchgroup=yamlBlock start=/[>|]\s*\n\+\z(\s\+\)\S/rs=s+1 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1
-syn region yamlString	matchgroup=yamlBlock start=/[>|]\(\d\|[+-]\)\s*\n\+\z(\s\+\)\S/rs=s+2 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1
-syn region yamlString	matchgroup=yamlBlock start=/[>|]\d\(\d\|[+-]\)\s*\n\+\z(\s\+\)\S/rs=s+3 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1
+syn region yamlString	start="\(^\|\s\|\[\|\,\|\-\)\@<='" end="'" skip="\\'" contains=@yamlSpelling
+syn region yamlString	start='"' end='"' skip='\\"' contains=yamlEscape contains=@yamlSpelling
+syn region yamlString	matchgroup=yamlBlock start=/[>|]\s*\n\+\z(\s\+\)\S/rs=s+1 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1 contains=@yamlSpelling
+syn region yamlString	matchgroup=yamlBlock start=/[>|]\(\d\|[+-]\)\s*\n\+\z(\s\+\)\S/rs=s+2 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1 contains=@yamlSpelling
+syn region yamlString	matchgroup=yamlBlock start=/[>|]\d\(\d\|[+-]\)\s*\n\+\z(\s\+\)\S/rs=s+3 skip=/^\%(\z1\S\|^$\)/ end=/^\z1\@!.*/me=s-1 contains=@yamlSpelling
 syn match  yamlEscape	+\\[abfnrtv'"\\]+ contained
 syn match  yamlEscape	"\\\o\o\=\o\=" contained
 syn match  yamlEscape	"\\x\x\+" contained
