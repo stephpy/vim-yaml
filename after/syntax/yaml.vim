@@ -55,15 +55,15 @@ syn match  yamlAlias	"*\S\+"
 
 " Setup the highlighting links
 
-hi link yamlConstant Keyword
-hi link yamlIndicator PreCondit
-hi link yamlAnchor	Function
-hi link yamlAlias	Function
-hi link yamlKey		Identifier
-hi link yamlType	Type
+hi def link yamlConstant Keyword
+hi def link yamlIndicator PreCondit
+hi def link yamlAnchor	Function
+hi def link yamlAlias	Function
+hi def link yamlKey		Identifier
+hi def link yamlType	Type
 
-hi link yamlComment	Comment
-hi link yamlInline	Operator
-hi link yamlBlock	Operator
-hi link yamlString	String
-hi link yamlEscape	Special
+hi def link yamlComment	Comment
+hi def link yamlInline	Operator
+hi def link yamlBlock	Operator
+hi def link yamlString	String
+hi def link yamlEscape	Special
